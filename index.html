@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rorisang Mphatsi - Professional Center Back</title>
+    <style>
+        :root {
+            --primary-color: #00529F;  /* Real Madrid blue */
+            --secondary-color: #FEBE10; /* Real Madrid gold */
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-color: #f5f5f5;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #FEBE10;  /* Gold becomes primary in dark */
+            --secondary-color: #00529F;
+            --text-color: #f5f5f5;
+            --bg-color: #121212;
+            --card-color: #1E1E1E;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .hero { 
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('player3.jpg') center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin: 0;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+            margin: 10px 0;
+            color: var(--secondary-color);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .about { 
+            padding: 30px;
+            max-width: 600px;
+            margin: -50px auto 50px;
+            background-color: var(--card-color);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 3;
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .profile-photo {
+            width: 209px;
+            height: 268px;
+            object-fit: cover;
+            border: 3px solid var(--secondary-color);
+            border-radius: 4px;
+            display: block;
+            margin: 0 auto 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h2, h3 {
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .theme-switch button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-switch button:hover {
+            opacity: 0.9;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: #000;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                height: 300px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero h2 {
+                font-size: 1.4rem;
+            }
+            .about {
+                margin: -30px auto 30px;
+                padding: 20px;
+            }
+            .profile-photo {
+                width: 160px;
+                height: 205px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switch">
+        <button id="themeToggle">
+            <span id="themeIcon">🌙</span> 
+            <span id="themeText">Dark Mode</span>
+        </button>
+    </div>
+
+    <div class="hero">
+        <div class="hero-content">
+            <h1>Rorisang Mphatsi</h1>
+            <h2>Professional Center Back <span class="badge">MUBs</span></h2>
+            <p>Strong • Tactical • Leader</p>
+        </div>
+    </div>
+    
+    <div class="about">
+        <img src="player3.jpg" alt="Rorisang Mphatsi in action" class="profile-photo" width="209" height="268">
+        <h2>About Me</h2>
+        <p>I'm a 6'3" physical defender with excellent positioning and ball-playing abilities. 
+        Currently playing for Mafeteng United Brothers (MUBs), I specialize in organizing defenses and building play from the back.</p>
+        
+        <h3>Key Attributes:</h3>
+        <ul>
+            <li>Aerial dominance (85% duel success rate)</li>
+            <li>90% pass accuracy</li>
+            <li>Leadership and communication</li>
+            <li>Strong 1v1 defending</li>
+        </ul>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        
+        // Check for saved theme preference or use preferred color scheme
+        const currentTheme = localStorage.getItem('theme') || 
+                            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        // Apply the current theme
+        document.body.setAttribute('data-theme', currentTheme);
+        updateButton(currentTheme);
+
+        // Toggle between light and dark theme
+        themeToggle.addEventListener('click', () => {
+            const current = document.body.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            
+            document.body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateButton(newTheme);
+        });
+
+        function updateButton(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+    </script>
+</body>
+</html>
